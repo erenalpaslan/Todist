@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.erendev.todist.R
+import com.erendev.todist.data.model.Task
 import com.erendev.todist.ui.theme.Blue
 import com.erendev.todist.ui.theme.White
 
@@ -24,11 +25,11 @@ import com.erendev.todist.ui.theme.White
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeContent(
-    list: List<String>? = null,
+    tasks: List<Task>? = null,
     onTabSelectionChanged: (Int) -> Unit,
     onAddButtonClicked: () -> Unit
 ) {
-    if (list.isNullOrEmpty()) {
+    if (tasks.isNullOrEmpty()) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -82,14 +83,14 @@ fun HomeContent(
             content = {
                 Column{
                     HomeTabs(tabs = listOf(
-                        "On Going",
+                        "Ongoing",
                         "Completed"
                     )) { position ->
                         onTabSelectionChanged(position)
                     }
                     LazyColumn {
-                        items(list) {
-
+                        items(tasks) { task ->  
+                            TaskItem(task = task)
                         }
                     }
                 }
