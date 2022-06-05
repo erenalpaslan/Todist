@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Todist</string>
+
+    <!-- Home -->
+    <string name="home_empty_list_title">No Tasks Yet</string>
+    <string name="home_empty_list_description">Add your personal todos\nand track of them</string>
+
+</resources>
