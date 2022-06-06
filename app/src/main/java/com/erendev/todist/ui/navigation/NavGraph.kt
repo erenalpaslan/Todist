@@ -2,9 +2,13 @@ package com.erendev.todist.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.erendev.todist.data.model.Task
+import com.erendev.todist.ui.navigation.type.TaskType
 import com.erendev.todist.ui.screen.detail.DetailScreen
 import com.erendev.todist.ui.screen.home.HomeScreen
 import com.erendev.todist.ui.screen.splash.SplashScreen
@@ -36,7 +40,12 @@ fun NavGraph(navController: NavHostController) {
                 )
             }
 
-            composable(Screen.Detail.route) {
+            composable(
+                route = "${Screen.Detail.route}/{task}",
+                arguments = listOf(navArgument("task") {
+                    type = TaskType()
+                })
+            ) {
                 get<DetailScreen>().Create(
                     viewModel = getViewModel(),
                     navController = navController

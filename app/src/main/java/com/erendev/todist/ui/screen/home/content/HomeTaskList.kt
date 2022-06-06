@@ -1,6 +1,7 @@
 package com.erendev.todist.ui.screen.home.content
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -23,6 +24,7 @@ import com.erendev.todist.ui.navigation.Screen
 import com.erendev.todist.ui.screen.home.HomeViewModel
 import com.erendev.todist.ui.screen.home.tab.HomeTabs
 import com.erendev.todist.ui.theme.Blue
+import com.google.gson.Gson
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -62,7 +64,8 @@ fun HomeTaskList(
                             TaskItem(
                                 task = task,
                                 onClick = {
-                                    navController.navigate(Screen.Detail.route)
+                                    val json = Gson().toJson(task)
+                                    navController.navigate("${Screen.Detail.route}/$json")
                                 },
                                 onEditClicked = {
                                     navController.navigate(Screen.Task.route)

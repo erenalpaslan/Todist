@@ -18,4 +18,10 @@
     <string name="task_add_date_placeholder">Add Date &amp; Time</string>
     <string name="task_remind_me_title">Remind me</string>
 
+    <!-- Detail -->
+    <string name="detail_task_page_name">Task Details</string>
+    <string name="detail_description_title">Description</string>
+    <string name="detail_due_date_title">Due Date</string>
+    <string name="detail_mark_as_completed">Mark as complete</string>
+
 </resources>

@@ -13,6 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -48,12 +50,13 @@ fun TaskItem(
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .background(task.category?.color ?: Blue)
+                    .background(colorResource(id = task.category?.color ?: R.color.purple_200))
                     .padding(10.dp)
             ) {
                 Image(
-                    imageVector = task.category?.icon ?: Icons.Rounded.Close,
+                    painter = painterResource(id = task.category?.icon ?: R.drawable.ic_todo_list),
                     contentDescription = "",
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }
