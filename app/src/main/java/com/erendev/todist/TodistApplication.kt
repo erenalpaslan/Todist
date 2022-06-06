@@ -2,17 +2,21 @@ package com.erendev.todist
 
 import android.app.Application
 import com.erendev.todist.di.appModule
+import com.erendev.todist.ui.screen.detail.detailModule
 import com.erendev.todist.ui.screen.home.homeModule
 import com.erendev.todist.ui.screen.splash.splashModule
+import com.erendev.todist.ui.screen.task.taskModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class TodistApplication: Application() {
 
-    val moduleList = listOf(
+    private val moduleList = listOf(
         appModule,
         splashModule,
-        homeModule
+        homeModule,
+        detailModule,
+        taskModule
     )
 
     override fun onCreate() {

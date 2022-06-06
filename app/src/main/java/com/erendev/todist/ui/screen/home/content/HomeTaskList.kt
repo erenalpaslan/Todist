@@ -1,4 +1,4 @@
-package com.erendev.todist.ui.screen.home
+package com.erendev.todist.ui.screen.home.content
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -20,6 +20,8 @@ import androidx.navigation.NavController
 import com.erendev.todist.R
 import com.erendev.todist.data.model.Task
 import com.erendev.todist.ui.navigation.Screen
+import com.erendev.todist.ui.screen.home.HomeViewModel
+import com.erendev.todist.ui.screen.home.tab.HomeTabs
 import com.erendev.todist.ui.theme.Blue
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,7 +39,7 @@ fun HomeTaskList(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate(Screen.NewTask.route)
+                    navController.navigate(Screen.Task.route)
                 },
                 containerColor = Blue
             ) {
@@ -63,7 +65,7 @@ fun HomeTaskList(
                                     navController.navigate(Screen.Detail.route)
                                 },
                                 onEditClicked = {
-                                    navController.navigate(Screen.Edit.route)
+                                    navController.navigate(Screen.Task.route)
                                 },
                                 onDeleteClicked = {
                                     viewModel.onDelete(task)

@@ -4,8 +4,8 @@ import androidx.annotation.StringRes
 
 enum class Screen(val route: String) {
     Splash(route = "splash"),
-    Home(route = "Home"),
-    Detail("Detail"),
-    NewTask("Task"),
-    Edit("Task/Edit")
+    Dashboard(route = "dashboard"),
+    Home(route = "home"),
+    Detail(route = "detail"),
+    Task(route = "task")
 }

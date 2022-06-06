@@ -2,9 +2,7 @@ package com.erendev.todist.ui.screen.home
 
 import android.annotation.SuppressLint
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.MailOutline
 import androidx.compose.material.icons.rounded.Menu
-import androidx.compose.material.icons.rounded.Phone
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,10 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.erendev.todist.R
 import com.erendev.todist.base.BaseScreen
-import com.erendev.todist.data.model.Category
-import com.erendev.todist.data.model.Task
-import com.erendev.todist.ui.theme.Green
-import com.erendev.todist.ui.theme.Red
+import com.erendev.todist.ui.screen.home.content.HomeContent
 
 
 class HomeScreen : BaseScreen<HomeViewModel>() {

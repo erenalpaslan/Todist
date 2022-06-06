@@ -42,7 +42,7 @@ class SplashScreen : BaseScreen<SplashViewModel>() {
         LaunchedEffect(key1 = "") {
             delay(1000L)
             navController.navigate(
-                Screen.Home.route, NavOptions.Builder()
+                Screen.Dashboard.route, NavOptions.Builder()
                     .setPopUpTo(Screen.Splash.route, true)
                     .build()
             )

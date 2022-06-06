@@ -1,4 +1,4 @@
-package com.erendev.todist.ui.screen.home
+package com.erendev.todist.ui.screen.home.content
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

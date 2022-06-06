@@ -9,4 +9,13 @@
     <string name="home_item_drop_down_mark_as_complete">Mark as complete</string>
     <string name="home_tab_ongoing">Ongoing</string>
     <string name="home_tab_completed">Completed</string>
+    
+    <!-- Task -->
+    <string name="task_add_page_name">Add Task</string>
+    <string name="task_title_placeholder">Title</string>
+    <string name="task_category_placeholder">Category</string>
+    <string name="task_description_placeholder">Description</string>
+    <string name="task_add_date_placeholder">Add Date &amp; Time</string>
+    <string name="task_remind_me_title">Remind me</string>
+
 </resources>
