@@ -46,27 +46,8 @@ class HomeScreen : BaseScreen<HomeViewModel>() {
             },
             content = {
                 HomeContent(
-                    tasks = listOf(
-                        Task(
-                            title = "Create TO-DO app",
-                            description = "You'll be building manager within jetpack compose declarative ui implementation and user can operates task  operations by the implemented features",
-                            category = Category(0, "Job", Green, Icons.Rounded.MailOutline),
-                            startDate = 12345L,
-                            endDate = 123456L
-                        ),
-                        Task(
-                            title = "Buy Groceries",
-                            description = "This month grocery list added here!",
-                            category = Category(0, "Job", Red, Icons.Rounded.Phone),
-                            startDate = 12345L
-                        )
-                    ),
-                    onTabSelectionChanged = {
-
-                    },
-                    onAddButtonClicked = {
-
-                    }
+                    viewModel = viewModel,
+                    navController = navController
                 )
             }
         )

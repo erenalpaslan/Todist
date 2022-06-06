@@ -4,5 +4,9 @@
     <!-- Home -->
     <string name="home_empty_list_title">No Tasks Yet</string>
     <string name="home_empty_list_description">Add your personal todos\nand track of them</string>
-
+    <string name="home_item_drop_down_edit">Edit</string>
+    <string name="home_item_drop_down_delete">Delete</string>
+    <string name="home_item_drop_down_mark_as_complete">Mark as complete</string>
+    <string name="home_tab_ongoing">Ongoing</string>
+    <string name="home_tab_completed">Completed</string>
 </resources>

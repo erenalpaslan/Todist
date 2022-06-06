@@ -2,6 +2,7 @@ package com.erendev.todist.ui.screen.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -11,14 +12,16 @@ import androidx.compose.material.icons.rounded.MailOutline
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.erendev.todist.R
 import com.erendev.todist.data.model.Category
 import com.erendev.todist.data.model.Task
 import com.erendev.todist.ui.theme.Blue
@@ -27,17 +30,29 @@ import com.erendev.todist.ui.theme.Red
 
 @Composable
 fun TaskItem(
-    task: Task
+    task: Task,
+    onClick: () -> Unit,
+    onEditClicked: () -> Unit,
+    onDeleteClicked: () -> Unit,
+    onCompleteClicked: () -> Unit
 ) {
+    var expanded by remember {
+        mutableStateOf(false)
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(align = Alignment.CenterVertically, unbounded = true)
             .padding(horizontal = 16.dp)
             .height(IntrinsicSize.Min)
+            .clickable {
+                onClick()
+            }
     ) {
-        Box(modifier = Modifier.fillMaxHeight(),
-        contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier.fillMaxHeight(),
+            contentAlignment = Alignment.Center
+        ) {
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
@@ -72,8 +87,31 @@ fun TaskItem(
         Column(
             verticalArrangement = Arrangement.Top
         ) {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { expanded = true }) {
                 Icon(imageVector = Icons.Rounded.MoreVert, contentDescription = "More Vertical")
+            }
+
+            DropdownMenu(expanded = expanded, onDismissRequest = {
+                expanded = false
+            }) {
+                listOf(
+                    stringResource(id = R.string.home_item_drop_down_edit),
+                    stringResource(id = R.string.home_item_drop_down_delete),
+                    stringResource(id = R.string.home_item_drop_down_mark_as_complete)
+                ).forEachIndexed { index, s ->
+                    DropdownMenuItem(
+                        text = {
+                            Text(text = s)
+                        },
+                        onClick = {
+                            expanded = false
+                            when (index) {
+                                0 -> onEditClicked()
+                                1 -> onDeleteClicked()
+                                2 -> onCompleteClicked()
+                            }
+                        })
+                }
             }
         }
     }
