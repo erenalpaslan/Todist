@@ -16,13 +16,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel: BaseViewModel() {
 
-    private val _uiState: MutableStateFlow<HomeUiState> = MutableStateFlow(HomeUiState(tasks = listOf(
-        Task(
-            title = "Create TODO-list App",
-            description = "Create an application which user can easily manage tasks and operate some options",
-            category = Category(0, "Office", R.color.purple_200, R.drawable.ic_todo_list)
-        )
-    )))
+    private val _uiState: MutableStateFlow<HomeUiState> = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     fun onTabSelectionChanged(position: Int) {

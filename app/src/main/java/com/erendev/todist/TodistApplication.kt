@@ -1,6 +1,7 @@
 package com.erendev.todist
 
 import android.app.Application
+import com.erendev.todist.data.room.roomModule
 import com.erendev.todist.di.appModule
 import com.erendev.todist.ui.screen.detail.detailModule
 import com.erendev.todist.ui.screen.home.homeModule
@@ -16,7 +17,8 @@ class TodistApplication: Application() {
         splashModule,
         homeModule,
         detailModule,
-        taskModule
+        taskModule,
+        roomModule
     )
 
     override fun onCreate() {
