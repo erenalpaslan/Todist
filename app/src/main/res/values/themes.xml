@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.Todist" parent="android:Theme.Material.Light.NoActionBar"/>
 
-    <style name="Theme.Todist" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorSurface">@color/blue</item>
+        <item name="colorAccent">@color/blue</item>
+    </style>
+
 </resources>

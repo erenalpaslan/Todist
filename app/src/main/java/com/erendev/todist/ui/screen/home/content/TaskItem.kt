@@ -50,7 +50,7 @@ fun TaskItem(
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .background(colorResource(id = task.category?.color ?: R.color.purple_200))
+                    .background(colorResource(id = task.category?.color ?: R.color.blue))
                     .padding(10.dp)
             ) {
                 Image(

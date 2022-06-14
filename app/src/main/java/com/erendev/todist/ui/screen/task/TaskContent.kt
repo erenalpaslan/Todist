@@ -1,20 +1,28 @@
 package com.erendev.todist.ui.screen.task
 
-import androidx.compose.foundation.background
+import android.util.Log
+import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowDropDown
+import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.erendev.todist.data.model.Task
 import com.erendev.todist.R
+import com.erendev.todist.ui.MainActivity
+import com.erendev.todist.ui.screen.view.DatePicker
 import com.erendev.todist.ui.theme.Blue
+import com.erendev.todist.ui.theme.Gray
+import com.google.android.material.datepicker.MaterialDatePicker
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskContent(
     task: Task? = null,
@@ -37,16 +45,26 @@ fun TaskContent(
         mutableStateOf("")
     }
 
-    var shouldRemind by remember {
+    var showCategoryDropDown by remember {
         mutableStateOf(false)
     }
 
-    var showDropDown by remember {
+    var categoryDropDownSelection by remember {
+        mutableStateOf<String?>(null)
+    }
+
+    var showDatePicker by remember {
         mutableStateOf(false)
     }
 
-    var dropDownSelection by remember {
-        mutableStateOf("1 hour before")
+    if (showDatePicker) {
+        DatePicker(onDismissRequest = {
+            showDatePicker = false
+        }) { dateString ->
+            date = dateString
+            Log.d("DateControl", "=> $dateString")
+            showDatePicker = false
+        }
     }
 
     Column(
@@ -67,19 +85,47 @@ fun TaskContent(
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = category,
-            modifier = Modifier.fillMaxWidth(),
-            placeholder = {
-                Text(text = stringResource(id = R.string.task_category_placeholder))
-            },
-            onValueChange = {
-                category = it
-            })
+        Column() {
+            Box {
+                OutlinedTextField(
+                    value = categoryDropDownSelection ?: "",
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    placeholder = {
+                        Text(text = stringResource(id = R.string.task_category_placeholder))
+                    },
+                    onValueChange = {
+                        category = it
+                    },
+                    readOnly = true,
+                    trailingIcon = {
+                        Icon(imageVector = Icons.Rounded.ArrowDropDown, contentDescription = "")
+                    }
+                )
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .clickable {
+                        showCategoryDropDown = true
+                        Log.d("TaskContent", "=> $showCategoryDropDown")
+                    }) {
+
+                }
+            }
+            DropdownMenu(
+                expanded = showCategoryDropDown,
+                onDismissRequest = { showCategoryDropDown = false }) {
+                DropdownMenuItem(text = { Text(text = "Office") }, onClick = {
+                    showCategoryDropDown = false
+                    categoryDropDownSelection = "Office"
+                })
+            }
+        }
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = description,
             modifier = Modifier.fillMaxWidth(),
+            maxLines = 3,
             placeholder = {
                 Text(text = stringResource(id = R.string.task_description_placeholder))
             },
@@ -87,43 +133,31 @@ fun TaskContent(
                 description = it
             })
         Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = date,
-            modifier = Modifier.fillMaxWidth(),
-            placeholder = {
-                Text(text = stringResource(id = R.string.task_add_date_placeholder))
-            },
-            onValueChange = {
-                date = it
-            })
-        Spacer(modifier = Modifier.height(16.dp))
-        Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Checkbox(
-                    checked = shouldRemind,
-                    onCheckedChange = {
-                        shouldRemind = it
-                    }
-                )
-                Text(text = stringResource(id = R.string.task_remind_me_title))
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = dropDownSelection, color = Blue)
-                IconButton(onClick = { showDropDown = true }) {
+        Box {
+            OutlinedTextField(
+                value = date,
+                modifier = Modifier.fillMaxWidth(),
+                placeholder = {
+                    Text(text = stringResource(id = R.string.task_add_date_placeholder))
+                },
+                trailingIcon = {
                     Icon(
-                        imageVector = Icons.Rounded.ArrowDropDown,
-                        contentDescription = "Dropdown icon",
-                        tint = Blue
+                        imageVector = Icons.Rounded.DateRange,
+                        contentDescription = "Date",
+                        tint = if (date.isNotEmpty()) Blue else Gray
                     )
-                }
-                DropdownMenu(expanded = showDropDown, onDismissRequest = { showDropDown = false }) {
-                    DropdownMenuItem(text = { Text(text = "2 hour before") }, onClick = {
-                        showDropDown = false
-                        dropDownSelection = "2 hour before"
-                    })
-                }
+                },
+                onValueChange = {
+                    date = it
+                },
+                readOnly = true,
+            )
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .clickable {
+                    showDatePicker = true
+                }) {
             }
         }
     }
