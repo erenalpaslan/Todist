@@ -14,6 +14,7 @@ import com.erendev.todist.ui.screen.home.HomeScreen
 import com.erendev.todist.ui.screen.splash.SplashScreen
 import com.erendev.todist.ui.screen.task.TaskScreen
 import org.koin.androidx.compose.get
+import org.koin.androidx.compose.getStateViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -54,7 +55,7 @@ fun NavGraph(navController: NavHostController) {
 
             composable(Screen.Task.route) {
                 get<TaskScreen>().Create(
-                    viewModel = getViewModel(),
+                    viewModel = getStateViewModel(),
                     navController = navController
                 )
             }

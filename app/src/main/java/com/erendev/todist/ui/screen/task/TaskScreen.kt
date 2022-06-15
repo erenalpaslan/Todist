@@ -13,6 +13,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.erendev.todist.R
@@ -27,9 +28,14 @@ class TaskScreen : BaseScreen<TaskViewModel>() {
     @Composable
     override fun Content() {
 
-        val uiState by viewModel.categories.collectAsState()
+        val uiState by viewModel.uiState.collectAsState()
+        Log.d("CateControl", "=> uiState $uiState")
 
-        Log.d("UiStateControl", "=> $uiState")
+
+        val onDoneSuccess by viewModel.onDoneSucceeded.collectAsState()
+        if (onDoneSuccess) {
+            navController.navigateUp()
+        }
 
         Scaffold(
             modifier = Modifier.fillMaxSize(),
@@ -44,7 +50,9 @@ class TaskScreen : BaseScreen<TaskViewModel>() {
                         }
                     },
                     actions = {
-                        IconButton(onClick = { /*TODO: Done button*/ }) {
+                        IconButton(onClick = {
+                            viewModel.onDoneClicked()
+                        }) {
                             Icon(imageVector = Icons.Rounded.Done, contentDescription = "Done")
                         }
                     }
@@ -52,7 +60,6 @@ class TaskScreen : BaseScreen<TaskViewModel>() {
             },
             content = {
                 TaskContent(
-                    task = navController.currentBackStackEntry?.arguments?.getParcelable("task"),
                     categories = uiState.categories,
                     viewModel = viewModel,
                     modifier = Modifier.padding(top = it.calculateTopPadding())

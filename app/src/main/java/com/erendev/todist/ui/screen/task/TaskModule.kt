@@ -4,6 +4,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val taskModule = module {
-    viewModel { TaskViewModel(get()) }
+    viewModel { TaskViewModel(get(), get(), get()) }
     factory { TaskScreen() }
 }

@@ -75,7 +75,7 @@ fun TaskItem(
             )
             Spacer(modifier = Modifier.height(5.dp))
             Text(
-                text = "${task.startDate} - ${task.endDate}",
+                text = task.date,
             )
         }
 

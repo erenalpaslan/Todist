@@ -74,13 +74,11 @@ class DetailScreen : BaseScreen<DetailViewModel>() {
                     )
                     Text(text = task?.description ?: "")
                     Spacer(modifier = Modifier.height(20.dp))
-                    if (task?.startDate != null) {
-                        Text(
-                            text = stringResource(id = R.string.detail_due_date_title),
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Text(text = "${task?.startDate} - ${task?.endDate}")
-                    }
+                    Text(
+                        text = stringResource(id = R.string.detail_due_date_title),
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Text(text = "${task?.date}")
                     Column(
                         modifier = Modifier
                             .padding(16.dp)

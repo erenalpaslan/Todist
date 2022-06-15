@@ -28,11 +28,13 @@ import com.google.android.material.datepicker.MaterialDatePicker
 
 @Composable
 fun TaskContent(
-    task: Task? = null,
     categories: List<Category>? = emptyList(),
     viewModel: TaskViewModel,
     modifier: Modifier
 ) {
+
+    Log.d("CateControl", "=> $categories")
+
     var title by remember {
         mutableStateOf("")
     }
@@ -42,7 +44,7 @@ fun TaskContent(
     }
 
     var category by remember {
-        mutableStateOf("")
+        mutableStateOf<Category?>(null)
     }
 
     var date by remember {
@@ -51,10 +53,6 @@ fun TaskContent(
 
     var showCategoryDropDown by remember {
         mutableStateOf(false)
-    }
-
-    var categoryDropDownSelection by remember {
-        mutableStateOf<String?>(null)
     }
 
     var showDatePicker by remember {
@@ -66,7 +64,6 @@ fun TaskContent(
             showDatePicker = false
         }) { dateString ->
             date = dateString
-            Log.d("DateControl", "=> $dateString")
             showDatePicker = false
         }
     }
@@ -86,20 +83,20 @@ fun TaskContent(
             },
             onValueChange = {
                 title = it
+                viewModel.setTitle(it)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
         Column() {
             Box {
                 OutlinedTextField(
-                    value = categoryDropDownSelection ?: "",
+                    value = category?.name ?: "",
                     modifier = Modifier
                         .fillMaxWidth(),
                     placeholder = {
                         Text(text = stringResource(id = R.string.task_category_placeholder))
                     },
                     onValueChange = {
-                        category = it
                     },
                     readOnly = true,
                     trailingIcon = {
@@ -123,7 +120,8 @@ fun TaskContent(
                         modifier = Modifier
                             .clickable {
                                 showCategoryDropDown = false
-                                categoryDropDownSelection = it.name
+                                category = it
+                                viewModel.setCategory(it)
                             }
                             .padding(vertical = 3.dp, horizontal = 6.dp)
                             .fillMaxWidth(),
@@ -146,6 +144,7 @@ fun TaskContent(
             },
             onValueChange = {
                 description = it
+                viewModel.setDescription(it)
             })
         Spacer(modifier = Modifier.height(16.dp))
         Box {
@@ -163,7 +162,7 @@ fun TaskContent(
                     )
                 },
                 onValueChange = {
-                    date = it
+                    viewModel.setDate(it)
                 },
                 readOnly = true,
             )

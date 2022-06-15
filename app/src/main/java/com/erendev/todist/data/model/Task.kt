@@ -12,11 +12,10 @@ import kotlinx.parcelize.RawValue
 @Parcelize
 data class Task(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val title: String = "",
-    val description: String = "",
-    @Embedded val category: Category? = null,
-    val startDate: Long? = null,
-    val endDate: Long? = null,
+    var title: String = "",
+    var description: String = "",
+    @Embedded var category: Category? = null,
+    var date: String = "",
     val isCompleted: Boolean = false,
     val isFinished: Boolean = false
 ): Parcelable

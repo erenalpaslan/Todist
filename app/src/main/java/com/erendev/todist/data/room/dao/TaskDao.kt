@@ -7,7 +7,7 @@ import com.erendev.todist.data.model.Task
 interface TaskDao {
 
     @Insert
-    suspend fun insertTask(task: Task)
+    suspend fun insertTask(task: Task?)
 
     @Update
     suspend fun updateTask(task: Task?)
