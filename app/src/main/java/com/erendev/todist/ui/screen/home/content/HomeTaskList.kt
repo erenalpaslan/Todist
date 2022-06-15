@@ -31,6 +31,7 @@ import com.google.gson.Gson
 @Composable
 fun HomeTaskList(
     tasks: List<Task>?,
+    selectedTabIndex: Int,
     viewModel: HomeViewModel,
     navController: NavController
 ) {
@@ -54,7 +55,8 @@ fun HomeTaskList(
                     tabs = listOf(
                         stringResource(id = R.string.home_tab_ongoing),
                         stringResource(id = R.string.home_tab_completed)
-                    )
+                    ),
+                    selectedTabIndex = selectedTabIndex
                 ) { position ->
                     viewModel.onTabSelectionChanged(position)
                 }

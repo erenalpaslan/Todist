@@ -9,10 +9,11 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun HomeTabs(
     tabs: List<String> = emptyList(),
+    selectedTabIndex: Int = 0,
     onTabSelected: (Int) -> Unit
 ) {
     var selectedTabIndex by remember {
-        mutableStateOf(0)
+        mutableStateOf(selectedTabIndex)
     }
 
     TabRow(

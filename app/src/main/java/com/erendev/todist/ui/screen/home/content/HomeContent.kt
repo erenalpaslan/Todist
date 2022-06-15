@@ -10,7 +10,6 @@ import com.erendev.todist.ui.navigation.Screen
 import com.erendev.todist.ui.screen.home.HomeViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeContent(
     navController: NavController,
@@ -25,6 +24,7 @@ fun HomeContent(
     } else {
         HomeTaskList(
             tasks = uiState.tasks,
+            selectedTabIndex = uiState.selectedTabPosition,
             viewModel = viewModel,
             navController = navController
         )
