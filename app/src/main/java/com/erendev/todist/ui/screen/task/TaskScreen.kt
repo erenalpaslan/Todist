@@ -29,13 +29,6 @@ class TaskScreen : BaseScreen<TaskViewModel>() {
     override fun Content() {
 
         val uiState by viewModel.uiState.collectAsState()
-        Log.d("CateControl", "=> uiState $uiState")
-
-
-        val onDoneSuccess by viewModel.onDoneSucceeded.collectAsState()
-        if (onDoneSuccess) {
-            navController.navigateUp()
-        }
 
         Scaffold(
             modifier = Modifier.fillMaxSize(),
@@ -52,6 +45,7 @@ class TaskScreen : BaseScreen<TaskViewModel>() {
                     actions = {
                         IconButton(onClick = {
                             viewModel.onDoneClicked()
+                            navController.popBackStack()
                         }) {
                             Icon(imageVector = Icons.Rounded.Done, contentDescription = "Done")
                         }

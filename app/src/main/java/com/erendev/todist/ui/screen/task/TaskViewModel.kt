@@ -1,5 +1,8 @@
 package com.erendev.todist.ui.screen.task
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.erendev.todist.base.BaseViewModel
@@ -24,9 +27,6 @@ class TaskViewModel(
 
     private val _uiState: MutableStateFlow<TaskUIState> = MutableStateFlow(TaskUIState())
     val uiState: StateFlow<TaskUIState> = _uiState.asStateFlow()
-
-    private val _onDoneSucceeded: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val onDoneSucceeded: StateFlow<Boolean> = _onDoneSucceeded.asStateFlow()
 
     init {
         getCategories()
@@ -53,7 +53,9 @@ class TaskViewModel(
         viewModelScope.launch {
             getCategoriesUseCase.execute(null).collect { result ->
                 when(result) {
-                    is TodistResult.Error -> _error.postValue(result.message)
+                    is TodistResult.Error -> {
+                        _error.postValue(result.message)
+                    }
                     is TodistResult.Success -> _uiState.update {
                         it.copy(categories = result.data)
                     }
@@ -64,14 +66,7 @@ class TaskViewModel(
 
     fun onDoneClicked() {
         viewModelScope.launch {
-            insertTaskUseCase.execute(InsertTaskUseCase.Param(task = task)).collect{ result ->
-                when(result) {
-                    is TodistResult.Error -> _error.postValue(result.message)
-                    is TodistResult.Success -> _onDoneSucceeded.update {
-                        result.data ?: false
-                    }
-                }
-            }
+            insertTaskUseCase.execute(InsertTaskUseCase.Param(task = task))
         }
     }
 

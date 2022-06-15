@@ -30,35 +30,30 @@ fun NavGraph(navController: NavHostController) {
             )
         }
 
-        navigation(
-            startDestination = Screen.Home.route,
-            route = Screen.Dashboard.route
+        composable(Screen.Home.route) {
+            get<HomeScreen>().Create(
+                viewModel = getViewModel(),
+                navController = navController
+            )
+        }
+
+        composable(
+            route = "${Screen.Detail.route}/{task}",
+            arguments = listOf(navArgument("task") {
+                type = TaskType()
+            })
         ) {
-            composable(Screen.Home.route) {
-                get<HomeScreen>().Create(
-                    viewModel = getViewModel(),
-                    navController = navController
-                )
-            }
+            get<DetailScreen>().Create(
+                viewModel = getViewModel(),
+                navController = navController
+            )
+        }
 
-            composable(
-                route = "${Screen.Detail.route}/{task}",
-                arguments = listOf(navArgument("task") {
-                    type = TaskType()
-                })
-            ) {
-                get<DetailScreen>().Create(
-                    viewModel = getViewModel(),
-                    navController = navController
-                )
-            }
-
-            composable(Screen.Task.route) {
-                get<TaskScreen>().Create(
-                    viewModel = getStateViewModel(),
-                    navController = navController
-                )
-            }
+        composable(Screen.Task.route) {
+            get<TaskScreen>().Create(
+                viewModel = getStateViewModel(),
+                navController = navController
+            )
         }
     }
 }

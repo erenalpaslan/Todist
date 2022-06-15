@@ -33,8 +33,6 @@ fun TaskContent(
     modifier: Modifier
 ) {
 
-    Log.d("CateControl", "=> $categories")
-
     var title by remember {
         mutableStateOf("")
     }
