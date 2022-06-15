@@ -1,8 +1,10 @@
 package com.erendev.todist
 
 import android.app.Application
+import com.erendev.todist.data.repository.repositoryModule
 import com.erendev.todist.data.room.roomModule
 import com.erendev.todist.di.appModule
+import com.erendev.todist.domain.usecase.useCaseModule
 import com.erendev.todist.ui.screen.detail.detailModule
 import com.erendev.todist.ui.screen.home.homeModule
 import com.erendev.todist.ui.screen.splash.splashModule
@@ -18,7 +20,9 @@ class TodistApplication: Application() {
         homeModule,
         detailModule,
         taskModule,
-        roomModule
+        roomModule,
+        repositoryModule,
+        useCaseModule
     )
 
     override fun onCreate() {

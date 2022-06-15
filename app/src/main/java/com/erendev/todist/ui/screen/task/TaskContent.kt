@@ -10,13 +10,16 @@ import androidx.compose.material.icons.rounded.ArrowDropDown
 import androidx.compose.material.icons.rounded.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.erendev.todist.data.model.Task
 import com.erendev.todist.R
+import com.erendev.todist.data.model.Category
 import com.erendev.todist.ui.MainActivity
 import com.erendev.todist.ui.screen.view.DatePicker
 import com.erendev.todist.ui.theme.Blue
@@ -26,6 +29,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 @Composable
 fun TaskContent(
     task: Task? = null,
+    categories: List<Category>? = emptyList(),
     viewModel: TaskViewModel,
     modifier: Modifier
 ) {
@@ -107,7 +111,6 @@ fun TaskContent(
                     .height(56.dp)
                     .clickable {
                         showCategoryDropDown = true
-                        Log.d("TaskContent", "=> $showCategoryDropDown")
                     }) {
 
                 }
@@ -115,10 +118,22 @@ fun TaskContent(
             DropdownMenu(
                 expanded = showCategoryDropDown,
                 onDismissRequest = { showCategoryDropDown = false }) {
-                DropdownMenuItem(text = { Text(text = "Office") }, onClick = {
-                    showCategoryDropDown = false
-                    categoryDropDownSelection = "Office"
-                })
+                categories?.forEach {
+                    Row(
+                        modifier = Modifier
+                            .clickable {
+                                showCategoryDropDown = false
+                                categoryDropDownSelection = it.name
+                            }
+                            .padding(vertical = 3.dp, horizontal = 6.dp)
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(painter = painterResource(id = it.icon), contentDescription = "")
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(text = it.name)
+                    }
+                }
             }
         }
         Spacer(modifier = Modifier.height(16.dp))

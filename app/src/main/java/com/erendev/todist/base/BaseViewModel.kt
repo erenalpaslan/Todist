@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 
 open class BaseViewModel: ViewModel() {
 
-    private val _error: MutableLiveData<String> = MutableLiveData()
+    protected val _error: MutableLiveData<String> = MutableLiveData()
     val error: LiveData<String> = _error
 
     private val _showProgress: MutableLiveData<Boolean> = MutableLiveData()

@@ -11,6 +11,8 @@ import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.erendev.todist.R
@@ -24,6 +26,11 @@ class TaskScreen : BaseScreen<TaskViewModel>() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @Composable
     override fun Content() {
+
+        val uiState by viewModel.categories.collectAsState()
+
+        Log.d("UiStateControl", "=> $uiState")
+
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
@@ -46,6 +53,7 @@ class TaskScreen : BaseScreen<TaskViewModel>() {
             content = {
                 TaskContent(
                     task = navController.currentBackStackEntry?.arguments?.getParcelable("task"),
+                    categories = uiState.categories,
                     viewModel = viewModel,
                     modifier = Modifier.padding(top = it.calculateTopPadding())
                 )
